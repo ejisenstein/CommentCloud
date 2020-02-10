@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 
-#from apiclient.discovery import build
 from googleapiclient.discovery import build
 from wordcloud import WordCloud, STOPWORDS
 
@@ -14,10 +13,6 @@ st.title('Youtube Comment Builder')
 
 streamlit_yt_id = st.text_input("Give Youtube ID", '2MYD5LkXxKg')
 
-#streamlit_stopwords = st.text_area("Remove these words from the wordcloud, make sure to include a comma between each word",
-#'stupid, ugly')
-
-#@st.cache
 class CommentCloud():
     """Takes in a youtube id
     returns a wordcloud"""
@@ -98,9 +93,6 @@ class CommentCloud():
 
         text = " ".join(word for word in total_list)
 
-        #self.stops = self.stops.strip()
-        #self.split_stops = self.stops.split(',')
-
         self.wordstops = list(STOPWORDS) + list(self.stops)
 
         word_cloud = WordCloud(width = 1600,
@@ -112,11 +104,6 @@ class CommentCloud():
         plt.axis("off")
 
         return ax
-
-
-
-        #plt.savefig(self.file_name, facecolor='k', bbox_inches='tight')
-
 
 youtube_ID = streamlit_yt_id
 stops =  'stupid, ugly'
@@ -130,15 +117,9 @@ com_cloud.CommentRepliesDF()
 com_cloud.AppendReplies()
 cloud = com_cloud.MakeCloud(stops, file_name)
 
-
 st.pyplot()
 
 some_text = str(com_cloud.stops)
-
-#st.text(f'return of wordstops {type(some_text)}')
-
-#st.text(f'return of split_stops {com_cloud.split_stops} {type(com_cloud.split_stops)}')
-
 
 st.markdown('## Created by **Evan James Isenstein**')
 st.markdown('Evan is open to Data Science roles, he enjoys Tennessee Titans football, historical novels, and hot chicken')
