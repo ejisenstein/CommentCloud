@@ -53,3 +53,10 @@ Instructions available here: https://www.youtube.com/watch?v=5iWhQWVXosU
 pip install --upgrade google-api-python-client
 pip install wordcloud
 ```
+
+### 6. Run code
+
+```
+cd <dir_name>
+streamlit run StreamlitCommentClouds.py
+```
