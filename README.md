@@ -29,7 +29,7 @@ source <environment_name>/bin/activate
 
 You will need to activate your virtual environment every time you sign out.
 To tell whether your environment is active, the enviroment name should be visible in
-parentheses in the first line of your terminal command. 
+parentheses in the first line of your terminal command.
 
 ### 4. Install streamlit
 
@@ -48,15 +48,15 @@ You can use control + c to exit the streamlit app whenever you need.
 
 Visit https://console.developers.google.com/ and enable the Youtube Data v3 API.
 
-a. You need to have a project open, if you don't please create one
-b. Search for YouTube Data API v3 in the searchbar at the top
-c. Click Enable
-d. Click Create Credentials
-e. Under **Which API are you using?**, click YouTube Data API v3
-f. Under **Where will you be calling the API from** Click Web Browser(JavaScript)
-g. Under **What data will you be accessing?** click public data
-h. Click **What credentials do I need**
-i. Copy the API Key
+a. You need to have a project open, if you don't please create one  
+b. Search for YouTube Data API v3 in the searchbar at the top  
+c. Click Enable  
+d. Click Create Credentials  
+e. Under **Which API are you using?**, click YouTube Data API v3  
+f. Under **Where will you be calling the API from** Click Web Browser(JavaScript)  
+g. Under **What data will you be accessing?** click public data  
+h. Click **What credentials do I need**  
+i. Copy the API Key  
 
 Lets
 
