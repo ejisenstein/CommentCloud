@@ -1,6 +1,9 @@
 # CommentClouds
 Takes in a Youtube Video Id returns a word cloud of the comment section. Gets data through Youtube Data v3 API
 
+![][comment_builder.gif]
+
+
 ## Instructions
 
 When I use <dir_name> or anything with <> it means that you can choose what to name it.
