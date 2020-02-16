@@ -21,7 +21,7 @@ parentheses in the first line of your terminal command.
 ### 2. Install and Test Streamlit Dependency
 - With your active virtual environment, install streamlit with this command `pip install streamlit`
 - `You can test streamlit is working by running this command` `streamlit hello`
-- Full documentation of streamlit is here: https://docs.streamlit.io/   
+- Full documentation of streamlit is [here](https://docs.streamlit.io/)   
 
 ### 3. Connect to YouTube Data v3 API
 
