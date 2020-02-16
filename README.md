@@ -1,122 +1,98 @@
-# CommentClouds
+# CommentCloud
 Takes in a Youtube Video Id returns a word cloud of the comment section. Gets data through Youtube Data v3 API
 
 ![](comment_builder.gif)
 
+---
+## Initial Setup
 
-## Instructions
+### 1. Create a Virtual Environment in a New Directory
+A new virtual environment is necessary for streamlit. You can use
+whatever virtual environment you prefer, I typically use venv
+- First create a new directory: `mkdir <dir_name>`
+- Create a new environment `python3 -m venv <env_name>`
+- Activate the new environment `source <env_name>/bin/activate`
 
-When I use <dir_name> or anything with <> it means that you can choose what to name it.
+You will need to activate the virtual environment every time you quit the terminal or leave the virtual environment.
 
-
-### 1. Open up terminal, create new repository   
-
-
-```
-mkdir <dir_name>
-```
-
-### 2. initialize a virtual environment
-You can choose whatever virtual environment you prefer, I use venv
-```
-cd <dir_name>
-python3 -m venv <environment_name>
-```
-A good name for a virtual environment is ENV but you can name it whatever you want.
-
-### 3. Activate the virtual environment
-```
-source <environment_name>/bin/activate  
-```
-**Note**
-
-You will need to activate your virtual environment every time you sign out.
-To tell whether your environment is active, the enviroment name should be visible in
+To tell whether your environment is active, the environment name should be visible in
 parentheses in the first line of your terminal command.
 
-### 4. Install streamlit
+### 2. Install and Test Streamlit Dependency
+- With your active virtual environment, install streamlit with this command `pip install streamlit`
+- `You can test streamlit is working by running this command` `streamlit hello`
+- Full documentation of streamlit is here: https://docs.streamlit.io/   
 
-```
-pip install streamlit
-```
+### 3. Connect to YouTube Data v3 API
 
-The full documentation of streamlit is here https://docs.streamlit.io/
+- Visit [here](https://console.developers.google.com/) to enable the Youtube Data v3 API.
+  - You need to have a project open, if you don't please create one  
+  - Search for YouTube Data API v3 in the searchbar at the top  
+  - Click Enable  
+  - Click Create Credentials  
+  - Under **Which API are you using?**, click YouTube Data API v3  
+  - Under **Where will you be calling the API from** Click Web Browser(JavaScript)  
+  - Under **What data will you be accessing?** click public data  
+  - Click **What credentials do I need**  
+  - Copy the API Key
 
-### 5. Test stream
-```
-streamlit hello
-```
-You can use control + c to exit the streamlit app whenever you need.
-### 6. Enable Youtube Data v3 API
+### 4. Save your API key to your bash.
 
-Visit https://console.developers.google.com/ and enable the Youtube Data v3 API.
+- Go back to your home directory with the command `cd ~`
+- To access your bash use this command `nano .bash_profile`
+  - You do not need to use nano, vim works fine also
+- In your bash add `export YT_KEY="<youtube_key"`
+- Follow these commands to save the key to your bash
+  - Control X
+  - Type "yes" to save
+  - Press enter
 
-a. You need to have a project open, if you don't please create one  
-b. Search for YouTube Data API v3 in the searchbar at the top  
-c. Click Enable  
-d. Click Create Credentials  
-e. Under **Which API are you using?**, click YouTube Data API v3  
-f. Under **Where will you be calling the API from** Click Web Browser(JavaScript)  
-g. Under **What data will you be accessing?** click public data  
-h. Click **What credentials do I need**  
-i. Copy the API Key  
+### 5. Clone and add CommentCloud to your repository.
+Assuming you have installed git and have github account, navigate to your directory
+- Run `git init` to initialize a git repository
+- On the github page for CommentCloud click the green button that says clone or download,
+  -Make sure it says Clone with HTTPS
+  -Copy the link
+- Back in your terminal, while inside your repository run the command `git clone <link>`
 
-Lets
+### 6. Install other dependencies
 
-### 7. Hide Key in Environment Variables
+Again make sure that your virtual environment is active, if not run the `source <env_name>/bin/activate` again
 
-Go back to your home directory, you can use this command
+Install these dependencies within your virtual environment_name
 
-```
-cd ~
-```
+- matplotlib: visualization and graphing `pip install matplotlib`
+- Google API client `pip install --upgrade google-api-python-client`
+- WordCloud `pip install wordcloud`
 
-Then use this command to access your bash
-
-```
-nano .bash_profile //Do not need to use nano, but it is helpful
-```
-
-After entering your bash please enter this code. Instead of showing you an actual
-key, !API KEY! will refer to your actual API key.
-
-```
-export YT_KEY="!API KEY!"
-```
-Use these commands to get save the code within your bash.
-(ctrl x, yes to save, enter to keep file name)
-
-Instructions available here: https://www.youtube.com/watch?v=5iWhQWVXosU
-
-### 8 download code from github, put it into your directory.
-
-Assuming you have an activated github account and are signed in. Also assuming you
-have git.
-
-```
-```
-
-git init
-
-clone or download
-
-copy the link
-
-git clone <link>
-
-
-
-### 9. Install other dependencies
-
-```
-pip install matplotlib
-pip install --upgrade google-api-python-client
-pip install wordcloud
-```
-
-### 10. Run code
+### 7. How to run CommentCloud
 
 ```
 cd <dir_name>
-streamlit run StreamlitCommentClouds.py
+source <env_name>/bin/activate //if virtual environment is inactive
+cd CommentCloud
+streamlit run StreamLitCommentClouds.py
 ```
+
+
+**Final Notes**
+If you have any issues, specifically regarding the API Key, you can save the api key directly in StreamlitCommentClouds.py in the line:
+
+`api_key = os.environ.get('YT_KEY')`
+
+change it to
+
+`api_key = <api_key>`
+
+It's better practice to hide the key, but this will work. Make sure not to put an API Key in anything you upload to github!
+
+**What the Code Does**
+This program pulls top comments and their replies and puts them into a word cloud using the YouTube Data v3 API.
+
+The two main api methods used are
+- commentThreads().list: This lists all the top comments to a video by YouTube ID
+- comments().list: This lists all the replies based on the parentID of a comment.
+
+This program is built from a python class I created called comment cloud, the comment responses are broken into individual words, then put into a word cloud generator. 
+
+Finally this code uses streamlit to create a simple web app where you can enter a youtube id and it will return a wordcloud of the responses
