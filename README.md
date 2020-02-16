@@ -20,7 +20,7 @@ parentheses in the first line of your terminal command.
 
 ### 2. Install and Test Streamlit Dependency
 - With your active virtual environment, install streamlit with this command `pip install streamlit`
-- `You can test streamlit is working by running this command` `streamlit hello`
+- You can test streamlit is working by running this command `streamlit hello`
 - Full documentation of streamlit is [here](https://docs.streamlit.io/)   
 
 ### 3. Connect to YouTube Data v3 API
@@ -74,8 +74,7 @@ cd CommentCloud
 streamlit run StreamLitCommentClouds.py
 ```
 
-
-**Final Notes**  
+##Final Notes  
 If you have any issues, specifically regarding the API Key, you can save the api key directly in StreamlitCommentClouds.py in the line:
 
 `api_key = os.environ.get('YT_KEY')`
@@ -86,7 +85,7 @@ change it to
 
 It's better practice to hide the key, but this will work. Make sure not to put an API Key in anything you upload to github!
 
-**What the Code Does**  
+## What the Code Does
 This program pulls top comments and their replies and puts them into a word cloud using the YouTube Data v3 API.
 
 The two main api methods used are
