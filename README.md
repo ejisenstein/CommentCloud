@@ -75,7 +75,7 @@ streamlit run StreamLitCommentClouds.py
 ```
 
 
-**Final Notes**
+**Final Notes**  
 If you have any issues, specifically regarding the API Key, you can save the api key directly in StreamlitCommentClouds.py in the line:
 
 `api_key = os.environ.get('YT_KEY')`
@@ -86,13 +86,13 @@ change it to
 
 It's better practice to hide the key, but this will work. Make sure not to put an API Key in anything you upload to github!
 
-**What the Code Does**
+**What the Code Does**  
 This program pulls top comments and their replies and puts them into a word cloud using the YouTube Data v3 API.
 
 The two main api methods used are
 - commentThreads().list: This lists all the top comments to a video by YouTube ID
 - comments().list: This lists all the replies based on the parentID of a comment.
 
-This program is built from a python class I created called comment cloud, the comment responses are broken into individual words, then put into a word cloud generator. 
+This program is built from a python class I created called comment cloud, the comment responses are broken into individual words, then put into a word cloud generator.
 
 Finally this code uses streamlit to create a simple web app where you can enter a youtube id and it will return a wordcloud of the responses
