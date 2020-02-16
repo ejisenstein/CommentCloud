@@ -12,12 +12,14 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 st.title('Youtube Comment Builder')
 
 streamlit_yt_id = st.text_input("Give Youtube ID", '2MYD5LkXxKg')
+user_stops = st.text_area("Input Stop Words", 'ugly,stupid,worst')
+
 
 class CommentCloud():
     """Takes in a youtube id
     returns a wordcloud"""
 
-    def __init__(self, YouTube_ID, youtube, stops, file_name):
+    def __init__(self, YouTube_ID, youtube, file_name):
         self.YouTube_ID = YouTube_ID
         self.api_key = api_key
         self.youtube = youtube
@@ -28,7 +30,6 @@ class CommentCloud():
         part="snippet",
         videoId=self.YouTube_ID,
         maxResults = 100).execute()
-
     def TopCommentsDF(self):
         """Creates a dataframe with the author
         names under Name, comments under Val saved under self"""
@@ -93,7 +94,9 @@ class CommentCloud():
 
         text = " ".join(word for word in total_list)
 
-        self.wordstops = list(STOPWORDS) + list(self.stops)
+        self.stops = self.stops.split(',')
+
+        self.wordstops = (STOPWORDS).update(set(self.stops))
 
         word_cloud = WordCloud(width = 1600,
                                height = 800,
@@ -106,16 +109,15 @@ class CommentCloud():
         return ax
 
 youtube_ID = streamlit_yt_id
-stops =  'stupid, ugly'
 file_name = 'StreamLit.png'
 
-com_cloud = CommentCloud(youtube_ID, youtube, stops, file_name)
+com_cloud = CommentCloud(youtube_ID, youtube, file_name)
 com_cloud.GetTopComments()
 com_cloud.TopCommentsDF()
 com_cloud.GetTopCommentsWithReplies()
 com_cloud.CommentRepliesDF()
 com_cloud.AppendReplies()
-cloud = com_cloud.MakeCloud(stops, file_name)
+cloud = com_cloud.MakeCloud(user_stops, file_name)
 
 st.pyplot()
 
