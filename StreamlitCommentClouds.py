@@ -14,7 +14,7 @@ st.title('Youtube Comment Builder')
 streamlit_yt_id = st.text_input("Give Youtube ID", '2MYD5LkXxKg')
 user_stops = st.text_area("Input Stop Words", 'ugly,stupid,worst')
 word_cloud_color = st.selectbox('Pick a color for the word cloud',
-                                ('red', 'yellow', 'blue', 'green', 'black', 'white'))
+                                ('black', 'white', 'yellow', 'blue', 'green', 'red'))
 
 
 class CommentCloud():
@@ -77,39 +77,43 @@ class CommentCloud():
                columns =['Name', 'Val'])
 
     def AppendReplies(self):
-        """Appends top comments df and comment replies df"""
+        """Appends top comments df and comment replies df,
+        """
 
         full_comments = self.top_comments_df['Val']
 
         self.full_comments = full_comments.append(self.replies_df['Val'])
 
-    def MakeCloud(self, stops, file_name):
-        self.stops = stops
-        self.file_name = file_name
-
+    def ReturnWordSeries(self):
+        """Replaces and splits all words, turns them into lower case, makes a series
+        """
         total_words_series = self.full_comments.str.lower().str.replace('[^\w\s]', '').str.split()
+        return total_words_series
 
-        total_list = []
-        for word_list in total_words_series:
-            for word in word_list:
-                total_list.append(word)
+def MakeCloud(stops, file_name, word_series):
 
-        text = " ".join(word for word in total_list)
 
-        self.stops = self.stops.split(',')
+    total_list = []
+    for word_list in word_series:
+        for word in word_list:
+            total_list.append(word)
 
-        self.wordstops = (STOPWORDS).update(set(self.stops))
+    text = " ".join(word for word in total_list)
 
-        word_cloud = WordCloud(width = 1600,
-                               height = 800,
-                               stopwords=self.wordstops,
-                               background_color=word_cloud_color).generate(text)
+    stops = stops.split(',')
 
-        plt.figure( figsize=(20,10), facecolor='k')
-        ax = plt.imshow(word_cloud)
-        plt.axis("off")
+    wordstops = (STOPWORDS).update(set(stops))
 
-        return ax
+    word_cloud = WordCloud(width = 1600,
+                           height = 800,
+                           stopwords=wordstops,
+                           background_color=word_cloud_color).generate(text)
+
+    plt.figure( figsize=(20,10), facecolor='k')
+    ax = plt.imshow(word_cloud)
+    plt.axis("off")
+
+    return ax
 
 youtube_ID = streamlit_yt_id
 file_name = 'StreamLit.png'
@@ -120,11 +124,11 @@ com_cloud.TopCommentsDF()
 com_cloud.GetTopCommentsWithReplies()
 com_cloud.CommentRepliesDF()
 com_cloud.AppendReplies()
-cloud = com_cloud.MakeCloud(user_stops, file_name)
+series_words = com_cloud.ReturnWordSeries()
+cloud = MakeCloud(user_stops, file_name, series_words)
 
 st.pyplot()
 
-some_text = str(com_cloud.stops)
 
 st.markdown('## Created by **Evan James Isenstein**')
 st.markdown('Evan is open to Data Science roles, he enjoys Tennessee Titans football, historical novels, and hot chicken')
