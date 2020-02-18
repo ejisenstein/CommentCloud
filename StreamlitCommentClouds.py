@@ -13,6 +13,8 @@ st.title('Youtube Comment Builder')
 
 streamlit_yt_id = st.text_input("Give Youtube ID", '2MYD5LkXxKg')
 user_stops = st.text_area("Input Stop Words", 'ugly,stupid,worst')
+word_cloud_color = st.selectbox('Pick a color for the word cloud',
+                                ('red', 'yellow', 'blue', 'green', 'black', 'white'))
 
 
 class CommentCloud():
@@ -100,7 +102,8 @@ class CommentCloud():
 
         word_cloud = WordCloud(width = 1600,
                                height = 800,
-                               stopwords=self.wordstops).generate(text)
+                               stopwords=self.wordstops,
+                               background_color=word_cloud_color).generate(text)
 
         plt.figure( figsize=(20,10), facecolor='k')
         ax = plt.imshow(word_cloud)
